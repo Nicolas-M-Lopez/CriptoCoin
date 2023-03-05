@@ -1,30 +1,16 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default function App() {
 
-const [contador, setContador] = useState(0)
+const [cripto, setCripto] = useState()
 
-const add = () =>{
-  setContador(contador + 1)
-}
-const subtract = () =>{
-  setContador(contador - 1)
-}
-const restart = () =>{
-  alert('Se reseteo el contador')
-  setContador(0)
-}
 
   return (
     <View style={styles.container}>
       <Text style={styles.textStyle}>Bienvenido a CriptoCoin</Text>
-      <View style={styles.countContainer}>
-        <Button title ='Sumar' onPress={add} color = 'green'></Button>
-        <Text style={styles.textStyle}>{contador}</Text>
-        <Button title ='Restar' onPress={subtract} color = 'green'></Button>
-      </View>
-      <Button title ='Resetear' onPress={restart} color = 'red'></Button>
+      <TextInput style={styles.input} placeholder='Ingrese una criptomoneda' placeholderTextColor={'white'} onChangeText={(criptomoneda) => setCripto(criptomoneda)}/>
+      <Text style={styles.textStyle}>{cripto}</Text>
     </View>
   );
 }
@@ -42,8 +28,14 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold'
   },
-  countContainer:{
-    flexDirection: 'row-reverse'
+  input:{
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 10,
+    color:'white',
+    width: 200,
+    height: 35,
+    textAlign: 'center'
   }
   
 });
