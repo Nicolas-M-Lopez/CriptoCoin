@@ -1,41 +1,34 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-
+import { Text, View, TextInput, FlatList, TouchableOpacity, Alert } from 'react-native';
+import styles from './styles';
 export default function App() {
 
-const [cripto, setCripto] = useState()
+const [cripto, setCripto] = useState([
+  {name:'Bitcoin', price:1000, key:'1'},
+  {name:'Ethereum', price:500, key:'2'},
+  {name:'Dogecoin', price:10, key:'3'},
+  {name:'Theter', price:1, key:'4'},
+  {name:'Swapcoin', price:50, key:'5'},
+])
 
-
+const showPrice = (item) =>{
+  console.log(item.name)
+  Alert.alert( item.name,`$${item.price} Usd`)
+}
   return (
     <View style={styles.container}>
-      <Text style={styles.textStyle}>Bienvenido a CriptoCoin</Text>
+      <Text style={styles.title}>CriptoCoin</Text>
       <TextInput style={styles.input} placeholder='Ingrese una criptomoneda' placeholderTextColor={'white'} onChangeText={(criptomoneda) => setCripto(criptomoneda)}/>
-      <Text style={styles.textStyle}>{cripto}</Text>
+      
+      <FlatList
+        data = {cripto}
+        renderItem={({item})=>(
+          <View>
+            <TouchableOpacity onPress={() => showPrice(item)}><Text style={styles.text}>{item.name}</Text></TouchableOpacity>
+          </View>
+        )}
+      />     
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textStyle: {
-    fontSize: 25,
-    fontStyle: 'italic',
-    color: 'white',
-    fontWeight: 'bold'
-  },
-  input:{
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 10,
-    color:'white',
-    width: 200,
-    height: 35,
-    textAlign: 'center'
-  }
-  
-});
